@@ -1,0 +1,6 @@
+{
+  "name": "Tuteria Taxonomies",
+  "description": "Production-quality component library and management interface for Tuteria educational taxonomies, items, versions, and permissions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
