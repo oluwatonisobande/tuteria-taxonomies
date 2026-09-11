@@ -1,8 +1,11 @@
 # Tuteria Taxonomies Management System
 
-A production-grade React + TypeScript component library and management interface for Tuteria's educational taxonomies, curriculum classifications, examination boards, and international localization.
+A reusable React + TypeScript component library and management interface for Tuteria's educational taxonomies, curriculum classifications, examination boards, and international localization.
 
 Built according to the Product Engineer Case Study brief and prototype specifications.
+
+- **Live Application**: [https://ais-pre-6vekuh37djblu3apawk2r6-110462835010.europe-west2.run.app](https://ais-pre-6vekuh37djblu3apawk2r6-110462835010.europe-west2.run.app)
+- **GitHub Repository**: [https://github.com/oluwatonisobande/tuteria-taxonomies](https://github.com/oluwatonisobande/tuteria-taxonomies)
 
 ---
 
@@ -78,16 +81,29 @@ interface PermissionCapabilities {
 
 ## 3. Business Rules & Version Impact Mapping
 
-| Entity Type | Action | Affected Field | Version Impact | Rationale / Specification |
-|:---|:---|:---|:---:|:---|
-| **Taxonomy** | `create` | All | **Major** | Adding a top-level taxonomy introduces a new classification axis. |
-| **Taxonomy** | `remove` | All | **Major** | Removing a taxonomy can break dependent subject trees and queries. |
-| **Taxonomy** | `update` | `type` | **Major** | Re-classifying a taxonomy (e.g. from Terms to Levels) alters query schemas. |
-| **Taxonomy** | `update` | `name` | **Patch** | Display label refinement with preserved semantic identifiers. |
-| **Taxonomy** | `update` | `description` | **Patch** | Explanatory documentation update. |
-| **Item** | `create` | All | **Minor** | Introducing a new grade level or exam board adds capability backward-compatibly. |
-| **Item** | `remove` | All | **Minor** | Removing an item deprecates a classification value. |
-| **Item** | `update` | Regional variants | **Patch** | Localized text alias refinement without hierarchy changes. |
+### Assessment Specification vs. Implementation Decisions
+
+The assessment brief explicitly defines required version bump rules for core actions. Where the specification did not define an edge case (such as updating a taxonomy's `type`), a defensible engineering assumption was applied:
+
+- **Explicitly Defined by Assessment Specification**:
+  - Taxonomy `name` or `description` update → **Patch**
+  - Item addition or removal → **Minor**
+  - Item regional variant additions/updates → **Patch**
+  - Taxonomy addition (`create`) or removal (`remove`) → **Major**
+  - Staged publish release → Atomic batch increment calculated from highest-impact change
+- **Implementation Assumption**:
+  - Taxonomy `type` update → **Major** (*"Type changes are treated as major as an implementation assumption because they alter the taxonomy's semantic classification."*)
+
+| Entity Type | Action | Affected Field | Version Impact | Classification Origin | Rationale & Behavioral Notes |
+|:---|:---|:---|:---:|:---:|:---|
+| **Taxonomy** | `create` | All | **Major** | Specification | Introducing a top-level taxonomy establishes a new classification axis. |
+| **Taxonomy** | `remove` | All | **Major** | Specification | Removing a taxonomy can break dependent subject trees and queries. |
+| **Taxonomy** | `update` | `type` | **Major** | **Assumption** | *Type changes are treated as major as an implementation assumption because they alter the taxonomy's semantic classification.* |
+| **Taxonomy** | `update` | `name` | **Patch** | Specification | Display label refinement with preserved semantic identifiers. |
+| **Taxonomy** | `update` | `description` | **Patch** | Specification | Explanatory documentation update. |
+| **Item** | `create` | All | **Minor** | Specification | Introducing a new grade level or exam board adds backward-compatible capabilities. |
+| **Item** | `remove` | All | **Minor** | Specification | Removing an item deprecates a classification value. |
+| **Item** | `update` | Regional variants | **Patch** | Specification | Localized text alias refinement without hierarchy changes. |
 
 ---
 
@@ -118,6 +134,7 @@ interface PermissionCapabilities {
 2. **Version Bump Granularity**: The prototype was ambiguous about whether multiple pending changes trigger sequential version bumps or a single batch bump. **Decision**: Implemented batching logic: when a publisher clicks "Publish", all accepted staged changes are bundled into a single release, with the version increment determined by the highest-impact change in the batch (`getHighestImpact(impacts)`).
 3. **Regional Variant Editing**: The prototype displayed regional tags (e.g., `NG`, `GB`) as static indicators. **Decision**: Built a full interactive editor allowing operators to add, inspect, and remove localized equivalent names per country code.
 4. **Draft Protection**: The prototype permitted closing drawers while typing. **Decision**: Introduced an `UnsavedChangesDialog` to safeguard against accidental data loss when the drawer is dirty.
+5. **Taxonomy Type Mutation Impact**: The assessment specification explicitly provides rules for name/description edits, item add/remove, and taxonomy add/remove, but leaves taxonomy `type` alteration unspecified. **Decision**: *Type changes are treated as major as an implementation assumption because they alter the taxonomy's semantic classification* across Tuteria's downstream query pipelines.
 
 ---
 

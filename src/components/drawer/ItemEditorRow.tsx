@@ -73,6 +73,7 @@ export const ItemEditorRow: React.FC<ItemEditorRowProps> = ({
               onClick={onMoveUp}
               className="p-0.5 hover:text-[var(--text-primary)] disabled:opacity-20 cursor-pointer"
               title="Move item up"
+              aria-label={`Move ${item.name || 'item'} up`}
             >
               <ArrowUp className="w-3.5 h-3.5" />
             </button>
@@ -85,6 +86,7 @@ export const ItemEditorRow: React.FC<ItemEditorRowProps> = ({
               onClick={onMoveDown}
               className="p-0.5 hover:text-[var(--text-primary)] disabled:opacity-20 cursor-pointer"
               title="Move item down"
+              aria-label={`Move ${item.name || 'item'} down`}
             >
               <ArrowDown className="w-3.5 h-3.5" />
             </button>
@@ -140,6 +142,7 @@ export const ItemEditorRow: React.FC<ItemEditorRowProps> = ({
               : 'text-[var(--text-tertiary)] border-[var(--border-subtle)] hover:text-[var(--text-secondary)]'
           }`}
           title="Toggle region variants"
+          aria-label={`Toggle region variants for ${item.name || 'item'}`}
         >
           <Globe className="w-3.5 h-3.5" />
           <span>{item.regionVariants.length}</span>
@@ -152,6 +155,7 @@ export const ItemEditorRow: React.FC<ItemEditorRowProps> = ({
             onClick={onRemove}
             className="p-1 text-[var(--text-tertiary)] hover:text-[var(--palette-rose-600)] transition-colors cursor-pointer"
             title="Remove item"
+            aria-label={`Remove item ${item.name || ''}`}
           >
             <Trash2 className="w-4 h-4" />
           </button>
@@ -191,7 +195,9 @@ export const ItemEditorRow: React.FC<ItemEditorRowProps> = ({
                     <button
                       type="button"
                       onClick={() => handleRemoveVariant(vIdx)}
-                      className="text-[var(--text-tertiary)] hover:text-[var(--palette-rose-600)] p-0.5"
+                      className="text-[var(--text-tertiary)] hover:text-[var(--palette-rose-600)] p-0.5 cursor-pointer"
+                      title="Remove variant"
+                      aria-label={`Remove variant ${variant.regionCode} (${variant.value})`}
                     >
                       <Trash2 className="w-3 h-3" />
                     </button>
