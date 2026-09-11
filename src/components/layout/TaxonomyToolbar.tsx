@@ -32,10 +32,10 @@ export const TaxonomyToolbar: React.FC<TaxonomyToolbarProps> = ({
   activeFilterCount,
 }) => {
   return (
-    <div className="py-4 px-6 bg-[var(--surface-raised)] border-b border-[var(--border-subtle)]">
+    <div className="py-3.5 sm:py-4 px-4 sm:px-6 bg-[var(--surface-raised)] border-b border-[var(--border-subtle)]">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
         {/* Search & Filters */}
-        <div className="flex items-center gap-3 flex-1 flex-wrap">
+        <div className="flex items-center gap-2.5 sm:gap-3 flex-1 flex-wrap">
           {/* Search Box */}
           <div className="relative flex-1 min-w-[220px] max-w-md">
             <Search className="w-4 h-4 text-[var(--text-tertiary)] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />

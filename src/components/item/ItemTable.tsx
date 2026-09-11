@@ -18,7 +18,7 @@ export const ItemTable: React.FC<ItemTableProps> = ({
 }) => {
   return (
     <div className="w-full overflow-x-auto rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-raised)] shadow-xs">
-      <table className="w-full text-left border-collapse" id="items-table">
+      <table className="w-full min-w-[700px] text-left border-collapse" id="items-table">
         <thead>
           <tr className="border-b border-[var(--border-subtle)] bg-[var(--surface-sunken)] text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider">
             <th scope="col" className="py-3 px-5">

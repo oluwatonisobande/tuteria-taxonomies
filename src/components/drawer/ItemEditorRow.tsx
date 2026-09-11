@@ -63,103 +63,109 @@ export const ItemEditorRow: React.FC<ItemEditorRowProps> = ({
   return (
     <div className="p-3.5 bg-[var(--surface-raised)] rounded-lg border border-[var(--border-subtle)] hover:border-[var(--border-medium)] transition-all space-y-3">
       {/* Primary Row Controls */}
-      <div className="flex items-center gap-3">
-        {/* Reorder indices */}
-        {isEditable && (
-          <div className="flex flex-col items-center justify-center gap-0.5 text-[var(--text-tertiary)]">
-            <button
-              type="button"
-              disabled={index === 0}
-              onClick={onMoveUp}
-              className="p-0.5 hover:text-[var(--text-primary)] disabled:opacity-20 cursor-pointer"
-              title="Move item up"
-              aria-label={`Move ${item.name || 'item'} up`}
-            >
-              <ArrowUp className="w-3.5 h-3.5" />
-            </button>
-            <span className="text-[10px] font-mono text-[var(--text-muted)] leading-none">
-              {index + 1}
-            </span>
-            <button
-              type="button"
-              disabled={index === totalItems - 1}
-              onClick={onMoveDown}
-              className="p-0.5 hover:text-[var(--text-primary)] disabled:opacity-20 cursor-pointer"
-              title="Move item down"
-              aria-label={`Move ${item.name || 'item'} down`}
-            >
-              <ArrowDown className="w-3.5 h-3.5" />
-            </button>
-          </div>
-        )}
-
-        {/* Item Name Input or Text */}
-        <div className="flex-1 min-w-0">
-          {isEditable ? (
-            <input
-              type="text"
-              value={item.name}
-              onChange={(e) => handleNameChange(e.target.value)}
-              placeholder="Item name (e.g. Primary 1, Year 9)..."
-              className="w-full text-sm font-medium text-[var(--text-primary)] bg-transparent border-b border-transparent focus:border-[var(--border-focus)] focus:outline-none px-1 py-0.5"
-            />
-          ) : (
-            <span className="text-sm font-medium text-[var(--text-primary)]">
-              {item.name}
-            </span>
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+        {/* Item Reorder & Name */}
+        <div className="flex items-center gap-2.5 flex-1 min-w-0">
+          {/* Reorder indices */}
+          {isEditable && (
+            <div className="flex flex-col items-center justify-center gap-0.5 text-[var(--text-tertiary)] shrink-0">
+              <button
+                type="button"
+                disabled={index === 0}
+                onClick={onMoveUp}
+                className="p-0.5 hover:text-[var(--text-primary)] disabled:opacity-20 cursor-pointer"
+                title="Move item up"
+                aria-label={`Move ${item.name || 'item'} up`}
+              >
+                <ArrowUp className="w-3.5 h-3.5" />
+              </button>
+              <span className="text-[10px] font-mono text-[var(--text-muted)] leading-none">
+                {index + 1}
+              </span>
+              <button
+                type="button"
+                disabled={index === totalItems - 1}
+                onClick={onMoveDown}
+                className="p-0.5 hover:text-[var(--text-primary)] disabled:opacity-20 cursor-pointer"
+                title="Move item down"
+                aria-label={`Move ${item.name || 'item'} down`}
+              >
+                <ArrowDown className="w-3.5 h-3.5" />
+              </button>
+            </div>
           )}
-        </div>
 
-        {/* Category Badge or Input */}
-        <div className="w-40 shrink-0">
-          {isEditable ? (
-            <div className="flex items-center gap-1">
-              <Tag className="w-3.5 h-3.5 text-[var(--text-tertiary)]" />
+          {/* Item Name Input or Text */}
+          <div className="flex-1 min-w-0">
+            {isEditable ? (
               <input
                 type="text"
-                value={item.categoryLabel || ''}
-                onChange={(e) => handleCategoryChange(e.target.value)}
-                placeholder="Category (optional)"
-                className="w-full text-xs text-[var(--text-secondary)] bg-[var(--surface-sunken)] px-2 py-1 rounded border border-[var(--border-subtle)] focus:outline-none focus:border-[var(--border-focus)]"
+                value={item.name}
+                onChange={(e) => handleNameChange(e.target.value)}
+                placeholder="Item name (e.g. Primary 1, Year 9)..."
+                className="w-full text-sm font-medium text-[var(--text-primary)] bg-transparent border-b border-transparent focus:border-[var(--border-focus)] focus:outline-none px-1 py-0.5"
               />
-            </div>
-          ) : (
-            item.categoryLabel && (
-              <span className="text-xs text-[var(--text-secondary)] bg-[var(--surface-sunken)] px-2 py-0.5 rounded border border-[var(--border-subtle)]">
-                {item.categoryLabel}
+            ) : (
+              <span className="text-sm font-medium text-[var(--text-primary)]">
+                {item.name}
               </span>
-            )
-          )}
+            )}
+          </div>
         </div>
 
-        {/* Region Variants Toggle */}
-        <button
-          type="button"
-          onClick={() => setShowVariants(!showVariants)}
-          className={`flex items-center gap-1 text-xs px-2 py-1 rounded border transition-colors cursor-pointer ${
-            item.regionVariants.length > 0 || showVariants
-              ? 'bg-[var(--palette-blue-50)] text-[var(--palette-blue-700)] border-[var(--palette-blue-200)]'
-              : 'text-[var(--text-tertiary)] border-[var(--border-subtle)] hover:text-[var(--text-secondary)]'
-          }`}
-          title="Toggle region variants"
-          aria-label={`Toggle region variants for ${item.name || 'item'}`}
-        >
-          <Globe className="w-3.5 h-3.5" />
-          <span>{item.regionVariants.length}</span>
-        </button>
+        {/* Category Badge, Region variants, and Actions */}
+        <div className="flex items-center gap-2 justify-end shrink-0 pl-7 sm:pl-0">
+          {/* Category Badge or Input */}
+          <div className="w-32 sm:w-36 shrink-0">
+            {isEditable ? (
+              <div className="flex items-center gap-1">
+                <Tag className="w-3.5 h-3.5 text-[var(--text-tertiary)] shrink-0" />
+                <input
+                  type="text"
+                  value={item.categoryLabel || ''}
+                  onChange={(e) => handleCategoryChange(e.target.value)}
+                  placeholder="Category"
+                  className="w-full text-xs text-[var(--text-secondary)] bg-[var(--surface-sunken)] px-2 py-1 rounded border border-[var(--border-subtle)] focus:outline-none focus:border-[var(--border-focus)]"
+                />
+              </div>
+            ) : (
+              item.categoryLabel && (
+                <span className="text-xs text-[var(--text-secondary)] bg-[var(--surface-sunken)] px-2 py-0.5 rounded border border-[var(--border-subtle)]">
+                  {item.categoryLabel}
+                </span>
+              )
+            )}
+          </div>
 
-        {/* Remove item button */}
-        {isEditable && (
+          {/* Region Variants Toggle */}
           <button
             type="button"
-            onClick={onRemove}
-            className="p-1 text-[var(--text-tertiary)] hover:text-[var(--palette-rose-600)] transition-colors cursor-pointer"
-            title="Remove item"
-            aria-label={`Remove item ${item.name || ''}`}
+            onClick={() => setShowVariants(!showVariants)}
+            className={`flex items-center gap-1 text-xs px-2 py-1 rounded border transition-colors cursor-pointer shrink-0 ${
+              item.regionVariants.length > 0 || showVariants
+                ? 'bg-[var(--palette-blue-50)] text-[var(--palette-blue-700)] border-[var(--palette-blue-200)]'
+                : 'text-[var(--text-tertiary)] border-[var(--border-subtle)] hover:text-[var(--text-secondary)]'
+            }`}
+            title="Toggle region variants"
+            aria-label={`Toggle region variants for ${item.name || 'item'}`}
           >
-            <Trash2 className="w-4 h-4" />
+            <Globe className="w-3.5 h-3.5" />
+            <span>{item.regionVariants.length}</span>
           </button>
-        )}
+
+          {/* Remove item button */}
+          {isEditable && (
+            <button
+              type="button"
+              onClick={onRemove}
+              className="p-1 text-[var(--text-tertiary)] hover:text-[var(--palette-rose-600)] transition-colors cursor-pointer shrink-0"
+              title="Remove item"
+              aria-label={`Remove item ${item.name || ''}`}
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Expanded Region Variants Editor */}

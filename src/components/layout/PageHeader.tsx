@@ -27,11 +27,11 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   onOpenPublish,
 }) => {
   return (
-    <header className="bg-[var(--surface-raised)] border-b border-[var(--border-subtle)] px-6 py-5 sticky top-0 z-30 shadow-xs">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <header className="bg-[var(--surface-raised)] border-b border-[var(--border-subtle)] px-4 sm:px-6 py-4 sm:py-5 shadow-xs">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4">
         {/* Title & Version Info */}
         <div>
-          <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
             <h1 className="text-xl font-bold text-[var(--text-primary)] font-display tracking-tight">
               Taxonomies Management
             </h1>

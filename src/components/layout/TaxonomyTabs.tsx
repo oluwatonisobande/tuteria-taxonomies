@@ -17,8 +17,8 @@ export const TaxonomyTabs: React.FC<TaxonomyTabsProps> = ({
   itemsCount,
 }) => {
   return (
-    <div className="border-b border-[var(--border-subtle)] bg-[var(--surface-raised)] px-6">
-      <div className="max-w-7xl mx-auto flex items-center space-x-8" role="tablist">
+    <div className="border-b border-[var(--border-subtle)] bg-[var(--surface-raised)] px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto flex items-center space-x-6 sm:space-x-8" role="tablist">
         {/* Taxonomies Tab */}
         <button
           role="tab"

@@ -88,7 +88,7 @@ export const Drawer: React.FC<DrawerProps> = ({
             className={`relative w-full ${width} bg-[var(--surface-raised)] h-full shadow-2xl flex flex-col z-10 border-l border-[var(--border-subtle)]`}
           >
             {/* Header */}
-            <div className="flex items-start justify-between p-6 border-b border-[var(--border-subtle)] bg-[var(--surface-raised)]">
+            <div className="flex items-start justify-between p-4 sm:p-6 border-b border-[var(--border-subtle)] bg-[var(--surface-raised)]">
               <div>
                 <h2
                   id="drawer-title"
@@ -113,13 +113,13 @@ export const Drawer: React.FC<DrawerProps> = ({
             </div>
 
             {/* Scrollable Body */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 sm:space-y-6">
               {children}
             </div>
 
             {/* Footer */}
             {footer && (
-              <div className="p-4 px-6 border-t border-[var(--border-subtle)] bg-[var(--surface-sunken)] flex items-center justify-end gap-3 shrink-0">
+              <div className="p-3.5 sm:p-4 px-4 sm:px-6 border-t border-[var(--border-subtle)] bg-[var(--surface-sunken)] flex items-center justify-end gap-3 shrink-0">
                 {footer}
               </div>
             )}
